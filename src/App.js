@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import Form from "./components/Form";
 import WeatherNow from "./components/Weather";
+import WeatherDisplay from "./components/weather_display/WeatherDisplay";
+import WeatherBar from "./components/weather_bar/WeatherBar";
 
 
 const API_KEY = 'a29f5016da9a1b10d4c9971db54fd01e';       //апишка
@@ -16,13 +18,13 @@ class App extends React.Component {
         isSuccess: undefined,
         error: undefined
     };
-
+    test = false;
     getCity = async (e) => {   //метод для получения названия города введенного пользователем в форму
         e.preventDefault();
         let city = e.target.elements.city.value;  //получаем город который пользователь ввел в строку
 
         await this.getWeatherNow(await this.getData(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`));
-        this.getWeatherOnWeek(await this.getData(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`));
+        await this.getWeatherOnWeek(await this.getData(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`));
 
     };
 
@@ -65,6 +67,7 @@ class App extends React.Component {
             return 'Город не найден =(';
 
         }
+        this.test = true;
         return '';
     };
 
@@ -81,21 +84,13 @@ class App extends React.Component {
 
 
     render() {
-
         return (
-            <div>
+            <div className="App">
                 <h1>Погода</h1>
                 <Form weatherMethod={this.getCity}/>
-                <WeatherNow                                        //загружаем переменные из состояния в компонет weather
-                    city={this.state.city}
-                    temp={this.state.temp}
-                    country={this.state.country}
-                    sunrise={this.state.sunrise}
-                    sunset={this.state.sunset}
-                    isSuccess={this.state.isSuccess}
-                    error={this.state.error}
-                />
+                {this.test && <WeatherBar/> }
             </div>
+
         );
     }
 

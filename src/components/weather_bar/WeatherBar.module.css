@@ -1,0 +1,21 @@
+.card_wrapper {
+    display: inline-flex;
+
+
+
+    transition-property: opacity;
+    transition-duration: 10s;
+    transition-delay: 0s, 10s;
+
+
+}
+
+.cards {
+    margin: 0;
+    padding: 0;
+
+}
+
+.rowContainer{
+    display: flex;
+}
