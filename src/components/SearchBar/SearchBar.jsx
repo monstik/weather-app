@@ -1,6 +1,6 @@
 import React from "react";
 import Style from "./SearchBar.module.css";
-import axios from "axios";
+import * as axios from "axios";
 
 const SearchBar = (props) => {
 
@@ -12,8 +12,7 @@ const SearchBar = (props) => {
 
         if(event.key === "Enter"){
             axios.get(`${props.API.base}weather?q=${props.city}&units=metric&APPID=${props.API.key}`)
-                .then(res => {console.log(res);
-                    props.getWeather(res.data)})
+                .then(res => props.getWeather(res.data))
                 .catch(props.getWeather(undefined));
         }
 

@@ -34,7 +34,7 @@ const weather_reducer = (state = initialState, action) => {
                             city: action.response.name,
                             country: action.response.sys.country,
                         },
-                        date: dateBuilder(new Date),
+                        date: dateBuilder(new Date()),
                         temp: Math.round(action.response.main.temp),
                         weather_conditions: action.response.weather[0].main
                     },
